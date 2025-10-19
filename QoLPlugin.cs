@@ -50,7 +50,7 @@ public partial class QoLPlugin : BaseUnityPlugin
         FasterLifts = Config.Bind("Global Settings", "Faster Lifts", true, "Lifts Now Have Super Speed");
         InstantText = Config.Bind("Global Settings", "Instant Text", true, "Makes the Scroll Speed Of Text and Popup Speed Instant");
         SkipCutscene = Config.Bind("Global Settings", "Skip Cutscenes Faster", true, "Skips Cutscenes Faster");
-        SkipWeakness = Config.Bind("Global Settings", "Skip Weakness", true, "Removes Weakness scenes in Moss Grotto And Cogwork Core");
+        SkipWeakness = Config.Bind("Global Settings", "Skip Weakness", false, "Removes Weakness scenes in Moss Grotto And Cogwork Core");
         SmallTweaks = Config.Bind("Global Settings", "Small Tweaks", true, "Fixes Camera Issue In Putrefied Ducts");
         OldPatch = Config.Bind("Global Settings", "Old patch", false, "Patches In Old Features/Skips");
         FastUI = Config.Bind("Global Settings", "Fast Menu", true, "Removes The Fade Delay");

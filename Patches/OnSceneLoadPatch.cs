@@ -18,7 +18,7 @@ namespace QoL.Patches
                 OldPatch(LName);
                 SmallTweaks(LName);
                 SkipWeakness(LName);
-            }, 0.4f));
+            }, 0.3f));
         }
 
         private static void SmallTweaks(string LName)
@@ -55,7 +55,11 @@ namespace QoL.Patches
                     WeaknessManager = GameObject.Find("Weakness Cog Drop Scene");
                     break;
             }
-            if (WeaknessManager != null) WeaknessManager.SetActive(false);
+            if (WeaknessManager != null)
+            {
+                PlayerData.instance.churchKeeperIntro = true;
+                WeaknessManager.SetActive(false);
+            }
         }
 
         private static IEnumerator Delay(System.Action action, float seconds)
