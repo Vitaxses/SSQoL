@@ -8,7 +8,7 @@ namespace QoL.Patches
         [HarmonyPostfix]
         static void Postfix_Start(LiftControl __instance)
         {
-            if (!QoLPlugin.FasterLifts.Value) return;
+            if (!QoLPlugin.FasterLifts.Value || GameManager.instance.sceneName.Equals("Ward_01")) return;
 
             if (GameManager.instance.sceneName.Equals("Library_11")) __instance.moveSpeed = 25f;
             else __instance.moveSpeed = 150f;
