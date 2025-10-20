@@ -1,19 +1,17 @@
-using HarmonyLib;
-namespace QoL.Patches
+namespace QoL.Patches;
+
+[HarmonyPatch(typeof(LiftControl), nameof(LiftControl.Start))]
+internal static class LiftControlPatch
 {
-    [HarmonyPatch(typeof(LiftControl), nameof(LiftControl.Start))]
-    internal class LiftControlPatch
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void Postfix_Start(LiftControl __instance)
     {
+        string sceneName = __instance.gameObject.scene.name;
+        if (!Configs.FasterLifts.Value || sceneName == "Ward_01")
+            return;
 
-        [HarmonyPostfix]
-        static void Postfix_Start(LiftControl __instance)
-        {
-            if (!QoLPlugin.FasterLifts.Value || GameManager.instance.sceneName.Equals("Ward_01")) return;
-
-            if (GameManager.instance.sceneName.Equals("Library_11")) __instance.moveSpeed = 25f;
-            else __instance.moveSpeed = 150f;
-            __instance.moveDelay = 0f;
-            __instance.endDelay = 0f;
-        }
+        __instance.moveSpeed = sceneName == "Library_11" ? 25f : 150f;
+        __instance.moveDelay = 0f;
+        __instance.endDelay = 0f;
     }
 }
