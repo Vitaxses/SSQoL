@@ -12,7 +12,7 @@ namespace QoL.Patches
         {
             if (GameManager.instance == null) return;
             if (scene.name.Equals("Bone_04")) PlayerData.instance.metMapper = true;
-            SkipWeakness(GameManager.instance.sceneName.ToLower());
+            SkipWeakness();
             GameManager.instance.StartCoroutine(Delay(() =>
             {
                 var LName = GameManager.instance.sceneName.ToLower();
@@ -41,14 +41,14 @@ namespace QoL.Patches
             }
         }
 
-        private static void SkipWeakness(string LName)
+        private static void SkipWeakness()
         {
             if (!QoLPlugin.SkipWeakness.Value) return;
             PlayerData.instance.churchKeeperIntro = true;
             GameManager.instance.StartCoroutine(Delay(() =>
             {
                 GameObject WeaknessManager = GameObject.Find("Weakness Scene");
-                switch (LName)
+                switch (GameManager.instance.sceneName.ToLower())
                 {
                     case "bonetown":
                         Fsm fsm = FSMUtility.GetFSM(GameObject.Find("Churchkeeper Intro Scene")).Fsm;
