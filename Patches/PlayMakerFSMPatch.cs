@@ -12,7 +12,9 @@ internal static class PlayMakerFSMPatch
         FasterBossAndNpc.FasterBoss,
         FasterBossAndNpc.FasterNPC,
         Bellway.BellBeast,
-        Bellway.Toll
+        Bellway.Toll,
+        Ventrica.Tube,
+        Ventrica.Toll
     ];
 
     [HarmonyPostfix]

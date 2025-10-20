@@ -1,45 +1,91 @@
+using GlobalEnums;
+
 using HutongGames.PlayMaker;
 using HutongGames.PlayMaker.Actions;
 
-namespace QoL.FSMEdits;
+namespace QoL.Patches;
 
 internal static class Bellway
 {
-    internal static bool IsInBellwayScene(Component component) =>
+    private static bool IsInBellwayScene(Component component) =>
         FastTravelScenes._scenes.ContainsValue(
             GameManager.InternalBaseSceneName(component.gameObject.scene.name)
         );
 
     internal static void BellBeast(PlayMakerFSM fsm)
     {
-        if (!Configs.BellBeastFreeWill.Value && !Configs.NoBellBeastSleep.Value)
-            return;
-
         if (fsm is not { FsmName: "Interaction", name: "Bone Beast NPC" } || !IsInBellwayScene(fsm))
             return;
-        
-        FsmState SleepChoiceState = fsm.Fsm.GetState("Start State");
-        if (SleepChoiceState == null) return;
+
+        Plugin.Logger.LogDebug("Modifying Bell Beast FSM");
+
+        if (Configs.FasterBellwayTravel.Value) {
+            // Fast arrival
+            // TC made AudioPlayInState (index 6) does block finish so we can't directly disable it here
+            fsm.GetAction<Wait>("Travel Arrive Start", 7)!.time = 0f;
+
+            // HUD Fix
+            fsm.AddLambdaMethod("Wait Finished Entering", (finish) => {
+                if (!HudCanvas.IsVisible) {
+                    // Why TC
+                    HudCanvas canvas = HudCanvas.instance;
+                    canvas.targetFsm.SendEvent("IN");
+                    FSMUtility.SendEventToGameObject(canvas.gameObject, "INVENTORY OPEN COMPLETE", true);
+                }
+
+                finish();
+            });
+
+            // Fast departure
+            fsm.GetAction<ScreenFader>("Hero Jump", 0)!.duration = 0.25f;
+            fsm.DisableAction("Hero Jump", 5);
+            fsm.ChangeTransition("Hero Jump", FsmEvent.Finished.Name, "Time Passes");
+
+            // Don't sing on first entrance in range
+            fsm.ChangeTransition("First Enter?", FsmEvent.Finished.Name, "Idle");
+        }
 
         if (Configs.BellBeastFreeWill.Value)
         {
-            FsmState IsHereState = fsm.Fsm.GetState("Is Already Present?");
-            if (IsHereState == null) return;
+            // Standby everywhere
+            EnumCompare actionCompareLocation = fsm.GetAction<EnumCompare>("Is Already Present?", 1)!;
+            actionCompareLocation.notEqualEvent = actionCompareLocation.equalEvent;
 
-            FsmTransition transition = IsHereState.GetTransition(0);
-            transition.toState = "Start State";
-            transition.toFsmState = SleepChoiceState;
+            // Update current location when entering range
+            fsm.InsertLambdaMethod("First Enter?", 0, (finish) => {
+                PlayerData.instance.FastTravelNPCLocation = (FastTravelLocations) actionCompareLocation.compareTo.Value;
+                finish();
+            });
         }
 
-        if (Configs.NoBellBeastSleep.Value && SleepChoiceState != null)
+        if (Configs.NoBellBeastSleep.Value)
         {
-            SleepChoiceState.RemoveFirstActionOfType<SendRandomEvent>();
-            SendEvent? sendEventAction = SleepChoiceState.GetFirstActionOfType<SendEvent>();
-            if (sendEventAction == null) return;
-            sendEventAction.Enabled = true;
-            sendEventAction.sendEvent = fsm.Fsm.FindEvent("WAKE");
+            fsm.ChangeTransition("Start State", "SLEEP", "Wake Up");
         }
-    
+
+        // This is effectively covered by SkipCutscene already
+        // But here we make the cutscene not loaded at all, which is even faster
+        if (Configs.SkipCutscene.Value)
+        {
+            fsm.DisableAction("Choose Scene", 3); // Don't preload
+            fsm.ReplaceAction("Go To Stag Cutscene", 7, new BeginSceneTransition() {
+                sceneName = fsm.FsmVariables.GetFsmString("To Scene"),
+                entryGateName = "door_fastTravelExit",
+                entryDelay = 0f,
+                visualization = GameManager.SceneLoadVisualizations.Default,
+                preventCameraFadeOut = true
+            });
+        }
+
+        if (Configs.FasterBellwayBuy.Value)
+        {
+            // Auto call after unlock
+            fsm.ChangeTransition("Can Appear 2", "TRUE", "Appear Delay");
+
+            // Fast call
+            fsm.DisableAction("Appear Delay", 5);
+            fsm.DisableAction("Start Shake", 8);
+        }
     }
 
     internal static void Toll(PlayMakerFSM fsm)
@@ -51,16 +97,25 @@ internal static class Bellway
         if (fsm is not { FsmName: "Unlock Behaviour" } || !fsm.name.StartsWith("Bellway Toll Machine") || !IsInBellwayScene(fsm))
             return;
 
-        FsmState state1 = fsm.Fsm.GetState("Return Control");
-        if (state1 == null)
-            return;
-        FsmState state2 = fsm.Fsm.GetState("Allow Bellbeast Call");
-        if (state2 == null)
-            return;
-        var transition = state1.GetTransition(0);
-        transition.ToState = "Allow Bellbeast Call";
-        transition.toFsmState = state2;
-        state2.AddLambdaMethod((action) => { fsm.Fsm.SetState("Inert"); });
-        return;
+        Plugin.Logger.LogDebug("Modifying Bellway Toll FSM");
+
+        // Fast strum
+        fsm.DisableAction("Return Control", 5);
+        fsm.AddAction("Return Control", new SetAnimator() {
+            target = new(),
+            active = true
+        });
+        fsm.AddLambdaMethod("Return Control", (finish) => {
+            fsm.GetComponent<Animator>().speed = 20f;
+            finish();
+        });
+        fsm.DisableAction("Sequence Strum", 0);
+        fsm.DisableAction("Stop", 1);
+
+        // Fast floor open
+        fsm.DisableActions("Open Floor", 3, 5);
+        fsm.GetAction<CallMethodProper>("Open Floor", 0)!
+            .gameObject.GameObject.Value
+            .GetComponent<Animator>().speed = 10f;
     }
 }
