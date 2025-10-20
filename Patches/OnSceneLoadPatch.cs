@@ -1,5 +1,3 @@
-using HutongGames.PlayMaker;
-
 using UnityEngine.SceneManagement;
 
 namespace QoL.Patches;
