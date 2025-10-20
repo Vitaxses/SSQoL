@@ -1,8 +1,13 @@
+using System;
+
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+
 using HarmonyLib;
+
 using QoL.Patches;
+
 using UnityEngine.SceneManagement;
 
 namespace QoL;
@@ -11,33 +16,35 @@ namespace QoL;
 [BepInDependency("org.silksong-modding.fsmutil", BepInDependency.DependencyFlags.HardDependency)]
 public partial class QoLPlugin : BaseUnityPlugin
 {
-    Harmony harmony;
-    public static QoLPlugin Instance;
+    private readonly Harmony harmony = new(Id);
+
+	public static QoLPlugin Instance { get; private set; } = null!;
+
+	internal static new ManualLogSource Logger { get; private set; } = null!;
 
 
-    public static ConfigEntry<bool> FasterBellwayBuy { get; private set; }
-    public static ConfigEntry<bool> NoBellBeastSleep { get; private set; }
-    public static ConfigEntry<bool> BellBeastFreeWill { get; private set; }
+	public static ConfigEntry<bool> FasterBellwayBuy { get; private set; } = null!;
+    public static ConfigEntry<bool> NoBellBeastSleep { get; private set; } = null!;
+    public static ConfigEntry<bool> BellBeastFreeWill { get; private set; } = null!;
 
-    public static ConfigEntry<bool> FasterNPC { get; private set; }
-    public static ConfigEntry<bool> FasterBossLoad { get; private set; }
+    public static ConfigEntry<bool> FasterNPC { get; private set; } = null!;
+    public static ConfigEntry<bool> FasterBossLoad { get; private set; } = null!;
 
 
-    public static ConfigEntry<bool> InstantLevers { get; private set; }
-    public static ConfigEntry<bool> FasterLifts { get; private set; }
-    public static ConfigEntry<bool> InstantText { get; private set; }
-    public static ConfigEntry<bool> SkipCutscene { get; private set; }
-    public static ConfigEntry<bool> SkipWeakness { get; private set; }
-    public static ConfigEntry<bool> SmallTweaks { get; private set; }
-    public static ConfigEntry<bool> OldPatch { get; private set; }
-    public static ConfigEntry<bool> FastUI { get; private set; }
-    public static ConfigEntry<bool> NoHardFalls { get; private set; }
-
-    public ManualLogSource Logger => base.Logger;
+    public static ConfigEntry<bool> InstantLevers { get; private set; } = null!;
+    public static ConfigEntry<bool> FasterLifts { get; private set; } = null!;
+    public static ConfigEntry<bool> InstantText { get; private set; } = null!;
+    public static ConfigEntry<bool> SkipCutscene { get; private set; } = null!;
+    public static ConfigEntry<bool> SkipWeakness { get; private set; } = null!;
+    public static ConfigEntry<bool> SmallTweaks { get; private set; } = null!;
+    public static ConfigEntry<bool> OldPatch { get; private set; } = null!;
+    public static ConfigEntry<bool> FastUI { get; private set; } = null!;
+    public static ConfigEntry<bool> NoHardFalls { get; private set; } = null!;
 
     private void Start()
     {
         Instance = this;
+		Logger = base.Logger;
 
         FasterBellwayBuy = Config.Bind("Bellway Settings", "Faster Bellway Purchase", true, "Removes The Melody When Buying A Bellway Station");
         NoBellBeastSleep = Config.Bind("Bellway Settings", "BellBeast Always Awake", true, "Removes The Chance Of The BellBeast Sleeping");
@@ -58,7 +65,6 @@ public partial class QoLPlugin : BaseUnityPlugin
 
         SceneManager.sceneLoaded += OnSceneLoadPatch.OnSceneLoad;
 
-        harmony = new(Id);
         harmony.PatchAll();
 
         Logger.LogInfo($"Plugin {Name} ({Id}) has loaded!");
