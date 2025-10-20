@@ -39,8 +39,8 @@ public partial class QoLPlugin : BaseUnityPlugin
     {
         Instance = this;
 
-        FasterBellwayBuy = Config.Bind("Bellway Settings", "Faster Bellway Buy", true, "Removes The Melody When Buying A Bellway Station");
-        NoBellBeastSleep = Config.Bind("Bellway Settings", "No BellBeast Sleep", true, "Removes The Chance Of The BellBeast Sleeping");
+        FasterBellwayBuy = Config.Bind("Bellway Settings", "Faster Bellway Purchase", true, "Removes The Melody When Buying A Bellway Station");
+        NoBellBeastSleep = Config.Bind("Bellway Settings", "BellBeast Always Awake", true, "Removes The Chance Of The BellBeast Sleeping");
         BellBeastFreeWill = Config.Bind("Bellway Settings", "BellBeast Has Free Will", false, "BellBeast Will Always Be At Your Location");
 
         FasterNPC = Config.Bind("NPC Settings", "Faster Npc", true, "Removes Some Dialogue For Introduction Of An NPC");
