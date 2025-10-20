@@ -39,8 +39,8 @@ public partial class QoLPlugin : BaseUnityPlugin
     {
         Instance = this;
 
-        FasterBellwayBuy = Config.Bind("Bellway Settings", "Faster Bellway Buy", true, "Removes The Melody When Buying A Bellway Station");
-        NoBellBeastSleep = Config.Bind("Bellway Settings", "No BellBeast Sleep", true, "Removes The Chance Of The BellBeast Sleeping");
+        FasterBellwayBuy = Config.Bind("Bellway Settings", "Faster Bellway Purchase", true, "Removes The Melody When Buying A Bellway Station");
+        NoBellBeastSleep = Config.Bind("Bellway Settings", "BellBeast Always Awake", true, "Removes The Chance Of The BellBeast Sleeping");
         BellBeastFreeWill = Config.Bind("Bellway Settings", "BellBeast Has Free Will", false, "BellBeast Will Always Be At Your Location");
 
         FasterNPC = Config.Bind("NPC Settings", "Faster Npc", true, "Removes Some Dialogue For Introduction Of An NPC");
@@ -50,7 +50,7 @@ public partial class QoLPlugin : BaseUnityPlugin
         FasterLifts = Config.Bind("Global Settings", "Faster Lifts", true, "Lifts Now Have Super Speed");
         InstantText = Config.Bind("Global Settings", "Instant Text", true, "Makes the Scroll Speed Of Text and Popup Speed Instant");
         SkipCutscene = Config.Bind("Global Settings", "Skip Cutscenes Faster", true, "Skips Cutscenes Faster");
-        SkipWeakness = Config.Bind("Global Settings", "Skip Weakness", false, "Removes Weakness scenes in Moss Grotto And Cogwork Core");
+        SkipWeakness = Config.Bind("Global Settings", "Skip Weakness", true, "Removes Weakness scenes in Moss Grotto And Cogwork Core");
         SmallTweaks = Config.Bind("Global Settings", "Small Tweaks", true, "Fixes Camera Issue In Putrefied Ducts");
         OldPatch = Config.Bind("Global Settings", "Old patch", false, "Patches In Old Features/Skips");
         FastUI = Config.Bind("Global Settings", "Fast Menu", true, "Removes The Fade Delay");

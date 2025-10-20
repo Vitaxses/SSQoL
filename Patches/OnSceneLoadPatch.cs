@@ -12,12 +12,12 @@ namespace QoL.Patches
         {
             if (GameManager.instance == null) return;
             if (scene.name.Equals("Bone_04")) PlayerData.instance.metMapper = true;
+            SkipWeakness(GameManager.instance.sceneName.ToLower());
             GameManager.instance.StartCoroutine(Delay(() =>
             {
                 var LName = GameManager.instance.sceneName.ToLower();
                 OldPatch(LName);
                 SmallTweaks(LName);
-                SkipWeakness(LName);
             }, 0.3f));
         }
 
@@ -44,22 +44,25 @@ namespace QoL.Patches
         private static void SkipWeakness(string LName)
         {
             if (!QoLPlugin.SkipWeakness.Value) return;
-            GameObject WeaknessManager = GameObject.Find("Weakness Scene");
-            switch (LName)
+            PlayerData.instance.churchKeeperIntro = true;
+            GameManager.instance.StartCoroutine(Delay(() =>
             {
-                case "bonetown":
-                    Fsm fsm = FSMUtility.GetFSM(GameObject.Find("Churchkeeper Intro Scene")).Fsm;
-                    fsm.SetState("Set End");
-                    break;
-                case "cog_09_destroyed":
-                    WeaknessManager = GameObject.Find("Weakness Cog Drop Scene");
-                    break;
-            }
-            if (WeaknessManager != null)
-            {
-                PlayerData.instance.churchKeeperIntro = true;
-                WeaknessManager.SetActive(false);
-            }
+                GameObject WeaknessManager = GameObject.Find("Weakness Scene");
+                switch (LName)
+                {
+                    case "bonetown":
+                        Fsm fsm = FSMUtility.GetFSM(GameObject.Find("Churchkeeper Intro Scene")).Fsm;
+                        fsm.SetState("Set End");
+                        break;
+                    case "cog_09_destroyed":
+                        WeaknessManager = GameObject.Find("Weakness Cog Drop Scene");
+                        break;
+                }
+                if (WeaknessManager != null)
+                {
+                    WeaknessManager.SetActive(false);
+                }
+            }, 0.4f));
         }
 
         private static IEnumerator Delay(System.Action action, float seconds)
