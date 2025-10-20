@@ -1,15 +1,23 @@
 # QoL
+
 A Quality of Life mod for Hollow Knight: Silksong
 
 ## Notes
+
 - This mod requires a mod called [FSM Util](https://thunderstore.io/c/hollow-knight-silksong/p/silksong_modding/Silksong_FsmUtil/) to work, if this is not installed the mod will not work!
 
 ## Features
+
 - Faster Menu
 - Instant Text
-- Faster Bellway Station Buy
-- No BellBeast Sleep
-- No More Calling On The BellBeast (BellBeast Free Will)
+- Bellway
+  + Faster Travel Animations
+  + Faster Bellway Station Buy
+  + Bell Beast Always Awake
+  + Bell Beast Always Ready At Your Location (BellBeast Free Will)
+- Ventrica
+  + Faster Travel Animations
+  + Faster Ventrica Station Buy
 - Faster NPC Introductions
 - Instant Levers
 - Faster Lifts
@@ -18,7 +26,6 @@ A Quality of Life mod for Hollow Knight: Silksong
 - Small Tweaks (Fixing Camera Pan Issue In Putrefied Ducts)
 - Old Patch (Patches in Old Skips)
 - No Hard Falls
-
 
 ## Installation
 
@@ -29,4 +36,5 @@ Extract the Zip file to the generated plugins folder.
 Launch the game.
 
 ## Issues
+
 If you encounter an issue please make an Issue on the [Issue Page](https://github.com/Vitaxses/SSQoL/issues/new)
