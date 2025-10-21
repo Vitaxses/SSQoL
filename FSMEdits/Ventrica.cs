@@ -34,7 +34,7 @@ internal static class Ventrica
             fsm.GetAction<ScreenFader>("Fade Out", 2)!.duration = 0.25f;
             fsm.GetAction<Wait>("Fade Out", 3)!.time = 0.25f;
         }
-        
+
         if (Configs.FasterVentricaBuy.Value)
         {
             fsm.GetAction<SendEventByName>("Unlock Open", 1)!.sendEvent = "START OPEN";
