@@ -29,10 +29,16 @@ A Quality of Life mod for Hollow Knight: Silksong
 
 ## Installation
 
-Download and install [BepInEx](https://thunderstore.io/c/hollow-knight-silksong/p/BepInEx/BepInExPack_Silksong/)
+Download and install [BepInEx](https://thunderstore.io/c/hollow-knight-silksong/p/BepInEx/BepInExPack_Silksong/).
+
 Then start the game and close it so that a plugins folder is generated in the BepInEx folder besides the game executable.
+
 Download the latest [QoL.zip](https://github.com/Vitaxses/SSQoL/releases) file.
-Extract the Zip file to the generated plugins folder.
+
+Download the latest [FsmUtil version](https://thunderstore.io/c/hollow-knight-silksong/p/silksong_modding/Silksong_FsmUtil/) file.
+
+Extract the Zip files to the generated plugins folder.
+
 Launch the game.
 
 ## Issues

@@ -10,17 +10,17 @@ internal static class OnSceneLoadPatch
         if (HeroController.UnsafeInstance == null)
             return;
 
-        if (scene.name == "Bone_04")
+        if (Configs.FasterNPC.Value && scene.name == "Bone_04")
             PlayerData.instance.metMapper = true;
 
-        string sceneName = GameManager.instance.sceneName;
-        SkipWeakness(sceneName);
+        SkipWeakness(scene.name);
 
-        GameManager.instance.StartCoroutine(Delay(0.3f, () =>
+        StartCoroutine(() =>
         {
+            string sceneName = GameManager.instance.sceneName;
             OldPatch(sceneName);
             SmallTweaks(sceneName);
-        }));
+        }, 0.3f);
     }
 
     private static void SmallTweaks(string sceneName)
@@ -36,7 +36,7 @@ internal static class OnSceneLoadPatch
         if (!Configs.OldPatch.Value)
             return;
 
-        if (sceneName.Equals("Under_17"))
+        if (sceneName == "Under_17")
         {
             GameObject obj = GameObject.Find("terrain collider (15)");
             obj.transform.position = new Vector3(12.25f, 7.64f, 0f);
@@ -49,32 +49,42 @@ internal static class OnSceneLoadPatch
         if (!Configs.SkipWeakness.Value)
             return;
 
-        PlayerData.instance.churchKeeperIntro = true;
-        HeroController.instance.StartCoroutine(Delay(0.4f, () =>
+        if (sceneName == "Bonetown" && !PlayerData.instance.churchKeeperIntro)
+        {
+            PlayerData.instance.churchKeeperIntro = true;
+
+            StartCoroutine(() =>
+            {
+                GameObject.Find("Churchkeeper Intro Scene")
+                    .LocateMyFSM("Control")
+                    .SetState("Set End");
+            }, 0.3f);
+        }
+
+
+        StartCoroutine(() =>
         {
             GameObject weaknessScene = GameObject.Find("Weakness Scene");
-            switch (sceneName)
-            {
-                case "Bonetown":
-                    GameObject.Find("Churchkeeper Intro Scene")
-                        .LocateMyFSM("Control")
-                        .Fsm.SetState("Set End");
-                    break;
-                case "Cog_09_Destroyed":
-                    weaknessScene = GameObject.Find("Weakness Cog Drop Scene");
-                    break;
-            }
+
+            if (sceneName == "Cog_09_Destroyed")
+                weaknessScene = GameObject.Find("Weakness Cog Drop Scene");
 
             if (weaknessScene != null)
-            {
                 weaknessScene.SetActive(false);
-            }
-        }));
+        }, 0.3f);
     }
 
     private static IEnumerator Delay(float seconds, Action action)
     {
         yield return new WaitForSeconds(seconds);
         action.Invoke();
+    }
+
+    private static void StartCoroutine(Action action, float seconds)
+    {
+        if (HeroController.UnsafeInstance == null)
+            return;
+        
+        HeroController.instance.StartCoroutine(Delay(seconds, action));
     }
 }
