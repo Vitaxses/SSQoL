@@ -1,15 +1,12 @@
-using HarmonyLib;
+namespace QoL.Patches;
 
-namespace QoL.Patches
+[HarmonyPatch(typeof(UIManager), nameof(UIManager.Start))]
+internal static class UIManagerPatch
 {
-    [HarmonyPatch(typeof(UIManager))]
-    class UIManagerPatch
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void Postfix(UIManager __instance)
     {
-        [HarmonyPatch(typeof(UIManager), nameof(UIManager.Start))]
-        [HarmonyPostfix]
-        static void Postfix(UIManager __instance)
-        {
-            if (QoLPlugin.FastUI.Value) __instance.MENU_FADE_SPEED = 15;
-        }
+        if (Configs.FastUI.Value)
+            __instance.MENU_FADE_SPEED = 15;
     }
 }

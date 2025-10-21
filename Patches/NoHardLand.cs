@@ -1,16 +1,12 @@
-using HarmonyLib;
+namespace QoL.Patches;
 
-namespace QoL.Patches
+[HarmonyPatch(typeof(HeroController), nameof(HeroController.ShouldHardLand))]
+internal static class HardLandPatch
 {
-    [HarmonyPatch(typeof(HeroController), nameof(HeroController.ShouldHardLand))]
-    class HardLandPatch
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void ShouldHardLandPrefix(ref bool __result)
     {
-
-        [HarmonyPrefix]
-        static bool ShouldHardLandPrefix(ref bool __result)
-        {
-            if (QoLPlugin.NoHardFalls.Value) return __result = false;
-            return true;
-        }
+        if (Configs.NoHardFalls.Value)
+            __result = false;
     }
 }

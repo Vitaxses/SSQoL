@@ -1,40 +1,34 @@
-using HarmonyLib;
+namespace QoL.Patches;
 
-namespace QoL.Patches
+[HarmonyPatch(typeof(Lever), nameof(Lever.Start))]
+internal static class LeverPatch
 {
-    [HarmonyPatch(typeof(Lever))]
-    internal class LeverPatch
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void LeverStartPostfix(Lever __instance)
     {
-        [HarmonyPatch(typeof(Lever), nameof(Lever.Start))]
-        [HarmonyPostfix]
-        static void LeverStartPostfix(Lever __instance)
-        {
-            if (QoLPlugin.InstantLevers.Value) __instance.openGateDelay = 0f;
-        }
+        if (Configs.InstantLevers.Value)
+            __instance.openGateDelay = 0f;
     }
+}
 
-    [HarmonyPatch(typeof(Lever_tk2d))]
-    internal class Lever_tk2dPatch
+[HarmonyPatch(typeof(Lever_tk2d), nameof(Lever_tk2d.Start))]
+internal static class Lever_tk2dPatch
+{
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void TK2DLeverStartPostfix(Lever_tk2d __instance)
     {
-
-        [HarmonyPatch(typeof(Lever_tk2d), nameof(Lever_tk2d.Start))]
-        [HarmonyPostfix]
-        static void TK2DLeverStartPostfix(Lever_tk2d __instance)
-        {
-            if (QoLPlugin.InstantLevers.Value) __instance.openGateDelay = 0f;
-
-        }
+        if (Configs.InstantLevers.Value)
+            __instance.openGateDelay = 0f;
     }
+}
 
-    [HarmonyPatch(typeof(PressurePlateBase))]
-    internal class PressurePlateBasePatch
+[HarmonyPatch(typeof(PressurePlateBase), nameof(PressurePlateBase.Awake))]
+internal static class PressurePlateBasePatch
+{
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void TK2DLeverStartPostfix(PressurePlateBase __instance)
     {
-
-        [HarmonyPatch(typeof(PressurePlateBase), nameof(PressurePlateBase.Awake))]
-        [HarmonyPostfix]
-        static void TK2DLeverStartPostfix(PressurePlateBase __instance)
-        {
-            if (QoLPlugin.InstantLevers.Value) __instance.gateOpenDelay = __instance.waitTime = __instance.dropTime = 0f;
-        }
+        if (Configs.InstantLevers.Value)
+            __instance.gateOpenDelay = __instance.waitTime = __instance.dropTime = 0f;
     }
 }
