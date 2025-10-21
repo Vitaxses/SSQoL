@@ -94,7 +94,7 @@ internal static class Bellway
             return;
 
         // Grand Bellway has "Bellway Toll Machine(1)"
-        if (fsm is not { FsmName: "Unlock Behaviour" } || !fsm.name.StartsWith("Bellway Toll Machine") || !IsInBellwayScene(fsm))
+        if (fsm is not { FsmName: "Unlock Behaviour", name: "Bellway Toll Machine" } || !IsInBellwayScene(fsm))
             return;
 
         Plugin.Logger.LogDebug("Modifying Bellway Toll FSM");
