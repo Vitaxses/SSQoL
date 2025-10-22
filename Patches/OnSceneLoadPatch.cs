@@ -1,76 +1,90 @@
-using System.Collections;
-using HutongGames.PlayMaker;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace QoL.Patches
+namespace QoL.Patches;
+
+// SceneLoad (Weakness Scene, Camera pan issue, OldPatch & Fast Shakra)
+internal static class OnSceneLoadPatch
 {
-    // SceneLoad (Weakness Scene, Camera pan issue, OldPatch & Fast Shakra)
-    public class OnSceneLoadPatch
+    internal static void OnSceneLoad(Scene scene, LoadSceneMode lsm)
     {
-        public static void OnSceneLoad(Scene scene, LoadSceneMode lsm)
-        {
-            if (GameManager.instance == null) return;
-            if (scene.name.Equals("Bone_04")) PlayerData.instance.metMapper = true;
-            SkipWeakness();
-            GameManager.instance.StartCoroutine(Delay(() =>
-            {
-                var LName = GameManager.instance.sceneName.ToLower();
-                OldPatch(LName);
-                SmallTweaks(LName);
-            }, 0.3f));
-        }
+        if (HeroController.UnsafeInstance == null)
+            return;
 
-        private static void SmallTweaks(string LName)
-        {
-            if (!QoLPlugin.SmallTweaks.Value) return;
-            if (LName.Equals("aqueduct_01"))
-            {
-                GameObject.Destroy(GameObject.Find("Camera Locks"));
-            }
-        }
+        if (Configs.FasterNPC.Value && scene.name == "Bone_04")
+            PlayerData.instance.metMapper = true;
 
-        private static void OldPatch(string LName)
-        {
-            if (!QoLPlugin.OldPatch.Value) return;
-            if (LName.Equals("under_17"))
-            {
-                GameObject obj = GameObject.Find("terrain collider (15)");
-                obj.transform.position = obj.transform.localPosition = new Vector3(12.25f, 7.64f, 0f);
-                GameObject.Destroy(obj.GetComponent<NonSlider>());
-            }
-        }
+        SkipWeakness(scene.name);
 
-        private static void SkipWeakness()
+        StartCoroutine(() =>
         {
-            if (!QoLPlugin.SkipWeakness.Value) return;
+            string sceneName = GameManager.instance.sceneName;
+            OldPatch(sceneName);
+            SmallTweaks(sceneName);
+        }, 0.3f);
+    }
+
+    private static void SmallTweaks(string sceneName)
+    {
+        if (!Configs.SmallTweaks.Value || sceneName != "Aqueduct_01")
+            return;
+
+        UObject.Destroy(GameObject.Find("Camera Locks"));
+    }
+
+    private static void OldPatch(string sceneName)
+    {
+        if (!Configs.OldPatch.Value)
+            return;
+
+        if (sceneName == "Under_17")
+        {
+            GameObject obj = GameObject.Find("terrain collider (15)");
+            obj.transform.position = new Vector3(12.25f, 7.64f, 0f);
+            UObject.Destroy(obj.GetComponent<NonSlider>());
+        }
+    }
+
+    private static void SkipWeakness(string sceneName)
+    {
+        if (!Configs.SkipWeakness.Value)
+            return;
+
+        if (sceneName == "Bonetown" && !PlayerData.instance.churchKeeperIntro)
+        {
             PlayerData.instance.churchKeeperIntro = true;
-            GameManager.instance.StartCoroutine(Delay(() =>
+
+            StartCoroutine(() =>
             {
-                GameObject WeaknessManager = GameObject.Find("Weakness Scene");
-                switch (GameManager.instance.sceneName.ToLower())
-                {
-                    case "bonetown":
-                        Fsm fsm = FSMUtility.GetFSM(GameObject.Find("Churchkeeper Intro Scene")).Fsm;
-                        fsm.SetState("Set End");
-                        break;
-                    case "cog_09_destroyed":
-                        WeaknessManager = GameObject.Find("Weakness Cog Drop Scene");
-                        break;
-                }
-                if (WeaknessManager != null)
-                {
-                    WeaknessManager.SetActive(false);
-                }
-            }, 0.4f));
+                GameObject.Find("Churchkeeper Intro Scene")
+                    .LocateMyFSM("Control")
+                    .SetState("Set End");
+            }, 0.3f);
         }
 
-        private static IEnumerator Delay(System.Action action, float seconds)
+
+        StartCoroutine(() =>
         {
-            yield return new WaitForSeconds(seconds);
-            action.Invoke();
-            yield break;
-        }
+            GameObject weaknessScene = GameObject.Find("Weakness Scene");
 
+            if (sceneName == "Cog_09_Destroyed")
+                weaknessScene = GameObject.Find("Weakness Cog Drop Scene");
+
+            if (weaknessScene != null)
+                weaknessScene.SetActive(false);
+        }, 0.3f);
+    }
+
+    private static IEnumerator Delay(float seconds, Action action)
+    {
+        yield return new WaitForSeconds(seconds);
+        action.Invoke();
+    }
+
+    private static void StartCoroutine(Action action, float seconds)
+    {
+        if (HeroController.UnsafeInstance == null)
+            return;
+        
+        HeroController.instance.StartCoroutine(Delay(seconds, action));
     }
 }
