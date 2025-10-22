@@ -33,7 +33,7 @@ Download and install [BepInEx](https://thunderstore.io/c/hollow-knight-silksong/
 
 Then start the game and close it so that a plugins folder is generated in the BepInEx folder besides the game executable.
 
-Download the latest [QoL.zip](https://github.com/Vitaxses/SSQoL/releases) file.
+Download the latest [QoL.zip](https://github.com/Vitaxses/Silksong.QoL/releases) file.
 
 Download the latest [FsmUtil version](https://thunderstore.io/c/hollow-knight-silksong/p/silksong_modding/Silksong_FsmUtil/) file.
 
@@ -43,4 +43,4 @@ Launch the game.
 
 ## Issues
 
-If you encounter an issue please make an Issue on the [Issue Page](https://github.com/Vitaxses/SSQoL/issues/new)
+If you encounter an issue please make an Issue on the [Issue Page](https://github.com/Vitaxses/Silksong.QoL/issues/new)
