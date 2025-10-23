@@ -15,7 +15,10 @@ internal static class PlayMakerFSMPatch
         Bellway.Toll,
         Ventrica.Tube,
         Ventrica.Toll,
-        FsmLiftControl.Lift
+        FsmLiftControl.Lift,
+        BeastlingCall.SilkSpecials,
+        BeastlingCall.Beastlings,
+        BeastlingCall.Needolin
     ];
 
     [HarmonyPostfix]
