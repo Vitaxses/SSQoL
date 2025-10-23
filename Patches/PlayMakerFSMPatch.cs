@@ -14,7 +14,8 @@ internal static class PlayMakerFSMPatch
         Bellway.BellBeast,
         Bellway.Toll,
         Ventrica.Tube,
-        Ventrica.Toll
+        Ventrica.Toll,
+        FsmLiftControl.Lift
     ];
 
     [HarmonyPostfix]
