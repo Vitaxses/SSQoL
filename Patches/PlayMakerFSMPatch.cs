@@ -20,15 +20,15 @@ internal static class PlayMakerFSMPatch
 
     [HarmonyPostfix]
     private static void Postfix(PlayMakerFSM __instance)
-	{
+    {
         foreach (Action<PlayMakerFSM> edit in edits)
-		{
+        {
             try
-			{
+            {
                 edit.Invoke(__instance);
             }
-			catch (Exception e)
-			{
+            catch (Exception e)
+            {
                 Plugin.Logger.LogError($"Exception thrown when editing FSM {__instance.FsmName} on {__instance.name}");
                 Plugin.Logger.LogError(e);
             }
