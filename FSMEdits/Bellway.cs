@@ -25,15 +25,13 @@ internal static class Bellway
             fsm.GetAction<Wait>("Travel Arrive Start", 7)!.time = 0f;
 
             // HUD Fix
-            fsm.AddLambdaMethod("Wait Finished Entering", (finish) => {
+            fsm.AddMethod("Wait Finished Entering", (_) => {
                 if (!HudCanvas.IsVisible) {
                     // Why TC
                     HudCanvas canvas = HudCanvas.instance;
                     canvas.targetFsm.SendEvent("IN");
                     FSMUtility.SendEventToGameObject(canvas.gameObject, "INVENTORY OPEN COMPLETE", true);
                 }
-
-                finish();
             });
 
             // Fast departure
@@ -52,10 +50,9 @@ internal static class Bellway
             actionCompareLocation.notEqualEvent = actionCompareLocation.equalEvent;
 
             // Update current location when entering range
-            fsm.InsertLambdaMethod("First Enter?", 0, (finish) => {
-                PlayerData.instance.FastTravelNPCLocation = (FastTravelLocations) actionCompareLocation.compareTo.Value;
-                finish();
-            });
+            fsm.InsertMethod("First Enter?", 0, (_) => 
+                PlayerData.instance.FastTravelNPCLocation = (FastTravelLocations) actionCompareLocation.compareTo.Value
+            );
         }
 
         if (Configs.NoBellBeastSleep.Value)
@@ -105,10 +102,9 @@ internal static class Bellway
             target = new(),
             active = true
         });
-        fsm.AddLambdaMethod("Return Control", (finish) => {
-            fsm.GetComponent<Animator>().speed = 20f;
-            finish();
-        });
+        fsm.AddMethod("Return Control", (_) => 
+            fsm.GetComponent<Animator>().speed = 20f
+        );
         fsm.DisableAction("Sequence Strum", 0);
         fsm.DisableAction("Stop", 1);
 
