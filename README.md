@@ -5,6 +5,7 @@ A Quality of Life mod for Hollow Knight: Silksong
 ## Notes
 
 - This mod requires a mod called [FSM Util](https://thunderstore.io/c/hollow-knight-silksong/p/silksong_modding/Silksong_FsmUtil/) to work, if this is not installed the mod will not work!
+- You can edit the config in `Hollow Knight Silksong/BepInEx/config/io.github.vitaxses.qol/` then restart the game for the changes to take affect.
 
 ## Features
 
@@ -15,6 +16,8 @@ A Quality of Life mod for Hollow Knight: Silksong
   + Faster Bellway Station Buy
   + Bell Beast Always Awake
   + Bell Beast Always Ready At Your Location (BellBeast Free Will)
+  + Faster Beastling Call
+    - Skip Beastling Call Performance
 - Ventrica
   + Faster Travel Animations
   + Faster Ventrica Station Buy
