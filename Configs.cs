@@ -4,6 +4,8 @@ namespace QoL;
 
 public static class Configs
 {
+    public static ConfigEntry<bool> FleaTracked { get; private set; } = null!;
+
     public static ConfigEntry<bool> FasterBellwayTravel { get; private set; } = null!;
     public static ConfigEntry<bool> FasterBellwayBuy { get; private set; } = null!;
     public static ConfigEntry<bool> NoBellBeastSleep { get; private set; } = null!;
@@ -29,6 +31,8 @@ public static class Configs
 
     internal static void Bind(ConfigFile config)
     {
+        FleaTracked = config.Bind("Tracker Settings", "Count Fleas", true, "Counts Saved Fleas");
+
         FasterBellwayTravel = config.Bind("Bellway Settings", "Faster Bellway Travel Animation", true, "Speed Up Arrival And Departure Animations Of Bellway Travel");
         FasterBellwayBuy = config.Bind("Bellway Settings", "Faster Bellway Purchase", true, "Speed Up The Animation When Buying Bellway Stations And Calls Bell Beast Afterwards");
         NoBellBeastSleep = config.Bind("Bellway Settings", "BellBeast Always Awake", true, "Make The Bell Beast Be Always Awake");

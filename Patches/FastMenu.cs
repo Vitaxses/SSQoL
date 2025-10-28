@@ -7,6 +7,6 @@ internal static class UIManagerPatch
     private static void Postfix(UIManager __instance)
     {
         if (Configs.FastUI.Value)
-            __instance.MENU_FADE_SPEED = 15;
+            __instance.MENU_FADE_SPEED = 100;
     }
 }
