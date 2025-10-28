@@ -3,8 +3,8 @@ namespace QoL.Patches;
 [HarmonyPatch(typeof(InventoryPaneInput), nameof(InventoryPaneInput.OnEnable))]
 internal static class InventoryPaneInputPatch
 {
-    private static GameObject FleaCounter;
-    private static TMProOld.TMP_Text Counter;
+    private static GameObject FleaCounter = null!;
+    private static TMProOld.TMP_Text Counter = null!;
 
     [HarmonyWrapSafe, HarmonyPostfix]
     private static void Postfix_OnEnable()

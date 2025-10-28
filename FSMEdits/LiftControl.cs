@@ -6,7 +6,7 @@ internal static class FsmLiftControl
     private static bool IsInLiftScene(Component component)
     {
         string baseSceneName = GameManager.InternalBaseSceneName(component.gameObject.scene.name);
-        return baseSceneName == "Bonetown" || baseSceneName == "Belltown_06" || baseSceneName == "Room_Forge";
+        return baseSceneName == "Bonetown" || baseSceneName == "Belltown_06" || baseSceneName == "Room_Forge" || baseSceneName == "Dock_01";
     }
 
     internal static void Lift(PlayMakerFSM fsm)
