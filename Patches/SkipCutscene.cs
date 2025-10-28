@@ -32,3 +32,16 @@ internal static class SkippableSequencePatch
         return false;
     }
 }
+
+// Skips the Team Cherry icon
+[HarmonyPatch(typeof(StartManager), nameof(StartManager.Start))]
+internal static class StartManagerPatch
+{
+
+    [HarmonyWrapSafe, HarmonyPrefix]
+    static void Prefix_Start(StartManager __instance)
+    {
+        if (Configs.SkipCutscene.Value)
+            __instance.startManagerAnimator?.speed = 1000f;
+    }
+}

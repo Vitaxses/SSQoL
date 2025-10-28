@@ -18,7 +18,8 @@ internal static class PlayMakerFSMPatch
         FsmLiftControl.Lift,
         BeastlingCall.SilkSpecials,
         BeastlingCall.Beastlings,
-        BeastlingCall.Needolin
+        BeastlingCall.Needolin,
+        Cutscene.LastDive
     ];
 
     [HarmonyPostfix]
