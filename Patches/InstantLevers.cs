@@ -32,3 +32,14 @@ internal static class PressurePlateBasePatch
             __instance.gateOpenDelay = __instance.waitTime = __instance.dropTime = 0f;
     }
 }
+
+[HarmonyPatch(typeof(DialDoorBridge), nameof(DialDoorBridge.Start))]
+internal static class DialDoorBridgePatch
+{
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void Postfix_Start(DialDoorBridge __instance)
+    {
+        if (Configs.InstantLevers.Value)
+            __instance.doorOpenDelay = __instance.moveDelay = __instance.moveDuration = 0f;
+    }
+}
