@@ -103,6 +103,12 @@ internal static class FasterNpc
             {
                 EventRegister.SendEvent("FSM CANCEL");
                 HeroController.instance.RegainControl();
+                if (!HudCanvas.IsVisible) {
+                // Why TC
+                HudCanvas canvas = HudCanvas.instance;
+                canvas.targetFsm.SendEvent("IN");
+                FSMUtility.SendEventToGameObject(canvas.gameObject, "INVENTORY OPEN COMPLETE", true);
+            }
             });
         }
     }

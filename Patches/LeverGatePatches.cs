@@ -29,6 +29,21 @@ internal static class TrapdoorPatch
     }
 }
 
+
+[HarmonyPatch(typeof(TrapBridgeExtend), nameof(TrapBridgeExtend.Awake))]
+internal static class TrapBridgeExtendPatch
+{
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void Postfix_Awake(TrapBridgeExtend __instance)
+    {
+        if (Configs.InstantLevers.Value)
+        {
+            __instance.animator.speed = 8f;
+            __instance.openDelay = __instance.anticDelay = 0f;
+        }
+    }
+}
+
 [HarmonyPatch(typeof(Lever_tk2d), nameof(Lever_tk2d.Start))]
 internal static class Lever_tk2dPatch
 {
