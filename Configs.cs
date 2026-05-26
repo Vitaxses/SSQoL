@@ -50,7 +50,6 @@ public static class Configs
     public static ConfigEntry<LiftSpeed> FasterLifts { get; private set; } = null!;
     public static ConfigEntry<bool> InstantText { get; private set; } = null!;
     public static ConfigEntry<bool> FastUI { get; private set; } = null!;
-    public static ConfigEntry<bool> SlowerOptions { get; private set; } = null!;
 
     public const string TrackerSection = "Tracker Modules";
     public const string BellwaySection = "Bellway Modules";
@@ -110,7 +109,6 @@ public static class Configs
         InstantText = config.Bind(FastSection, "Instant Text", true, "Makes text reveal speed instant");
         FasterLifts = config.Bind(FastSection, "Lift Speed", LiftSpeed.Fast, "Adjusts lift speed");
         FastUI = config.Bind(FastSection, "Fast Menu", true, "Removes the menu fade delay");
-        SlowerOptions = config.Bind(FastSection, "Soften Fast Settings", false, "Makes some Fast Settings less extreme");
     }
 
     public enum FastCogworkStatues

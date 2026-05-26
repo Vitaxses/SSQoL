@@ -84,7 +84,7 @@ internal static class PressurePlateBasePatch
             return;
 
         __instance.gateOpenDelay = 0f;
-        __instance.dropTime = __instance.waitTime = Configs.SlowerOptions.Value ? 0.1f : 0f;
+        __instance.dropTime = __instance.waitTime = 0.05f;
     }
 }
 
@@ -96,8 +96,7 @@ internal static class DialDoorBridgePatch
     {
         if (Configs.InstantLevers.Value)
         {
-            __instance.doorOpenDelay = __instance.moveDelay = 0f;
-            __instance.moveDuration = Configs.SlowerOptions.Value ? 1f : 0f;
+            __instance.doorOpenDelay = __instance.moveDelay = __instance.moveDuration = 0f;
         }        
     }
 }

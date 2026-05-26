@@ -4,31 +4,20 @@ public static class FastMenu
 {
     internal static void ShopUI(PlayMakerFSM fsm)
     {
-        if (!Configs.FastUI.Value || Configs.SlowerOptions.Value)
+        if (!Configs.FastUI.Value)
             return;
 
         FsmFloat fadeTime = fsm.FindFloatVariable("Fade Time")!;
-        if (fadeTime != null) fadeTime.RawValue = 0.1f;
+        fadeTime?.RawValue = 0.1f;
 
         if (fsm.FsmName == "ui_list_item" && (fsm.name == "No" || fsm.name == "Yes"))
         {
             fsm.GetState("Chosen")!.GetLastActionOfType<Wait>()!.time = 0f;
         }
 
-        else if (fsm.FsmName == "shop_control")
-        {
-            fsm.GetState("Down")!.DisableActionsOfType<Wait>();
-            fsm.GetState("Open")!.DisableActionsOfType<Wait>();
-        }
-
         else if (fsm.FsmName == "Confirm Control" && fsm.name == "UI List")
         {
             fsm.GetState("Particles")!.GetFirstActionOfType<Wait>()!.time = 0.1f;
-        }
-
-        else if (fsm.FsmName == "Shift_pos")
-        {
-            fsm.GetState("Tween")!.GetFirstActionOfType<iTweenMoveTo>()!.time.Value *= 0.13f;
         }
     }
 

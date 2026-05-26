@@ -21,7 +21,7 @@ internal static class InventoryPaneInputPatch
             FleaCounter = UObject.Instantiate(obj, obj.transform.GetParent(), false);
             FleaCounter.transform.localPosition = new(-8f, -15.25f, -3.3f);
             UObject.DestroyImmediate(FleaCounter.GetComponent<SetTextMeshProGameText>());
-            FleaCounter.GetComponent<TMProOld.TMP_Text>().text = "Saved Fleas: ";
+            FleaCounter.GetComponent<TMProOld.TMP_Text>().text = "Fleas Saved: ";
             var child = FleaCounter.transform.GetChild(0).gameObject;
             child.name = "Counter";
             Counter = child.GetComponent<TMProOld.TMP_Text>();
