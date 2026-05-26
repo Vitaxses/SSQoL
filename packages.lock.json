@@ -24,6 +24,16 @@
         "resolved": "2.0.1",
         "contentHash": "UDVQtYOGU1v+xkYIRubm4zSIRtCW42kWgJ3sXIbqYSD1qSseH9gU44+zQMNRCy3BYXITtwWE3RqoyJdWUjDASA=="
       },
+      "HarmonyX": {
+        "type": "Direct",
+        "requested": "[2.9.0, )",
+        "resolved": "2.9.0",
+        "contentHash": "vB03a0lJJefzSnPP8VJSzyTtgSx81dnxU2olfirHTBnbXY8Uc2BMoxCODPK1nzg4C53lQR0NOi+bp9170sYVFA==",
+        "dependencies": {
+          "MonoMod.RuntimeDetour": "22.1.29.1",
+          "System.Reflection.Emit": "4.7.0"
+        }
+      },
       "Microsoft.Unity.Analyzers": {
         "type": "Direct",
         "requested": "[1.25.0, )",
@@ -70,15 +80,6 @@
         "type": "Transitive",
         "resolved": "5.4.20",
         "contentHash": "0bXgYxbCEN2Ixp3kiFEhyw+RASeFQeg/ww+lbMt7if6XMeVS60eg6epNsMA8Jbx57dmNOzNevkKKw8mP8SUMqw=="
-      },
-      "HarmonyX": {
-        "type": "Transitive",
-        "resolved": "2.9.0",
-        "contentHash": "vB03a0lJJefzSnPP8VJSzyTtgSx81dnxU2olfirHTBnbXY8Uc2BMoxCODPK1nzg4C53lQR0NOi+bp9170sYVFA==",
-        "dependencies": {
-          "MonoMod.RuntimeDetour": "22.1.29.1",
-          "System.Reflection.Emit": "4.7.0"
-        }
       },
       "Microsoft.NETCore.Platforms": {
         "type": "Transitive",

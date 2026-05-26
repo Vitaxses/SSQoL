@@ -29,6 +29,21 @@ internal static class TrapdoorPatch
     }
 }
 
+
+[HarmonyPatch(typeof(TrapBridgeExtend), nameof(TrapBridgeExtend.Awake))]
+internal static class TrapBridgeExtendPatch
+{
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void Postfix_Awake(TrapBridgeExtend __instance)
+    {
+        if (Configs.InstantLevers.Value)
+        {
+            __instance.animator.speed = 8f;
+            __instance.openDelay = __instance.anticDelay = 0f;
+        }
+    }
+}
+
 [HarmonyPatch(typeof(Lever_tk2d), nameof(Lever_tk2d.Start))]
 internal static class Lever_tk2dPatch
 {
@@ -69,7 +84,7 @@ internal static class PressurePlateBasePatch
             return;
 
         __instance.gateOpenDelay = 0f;
-        __instance.dropTime = __instance.waitTime = Configs.SlowerOptions.Value ? 0.1f : 0f;
+        __instance.dropTime = __instance.waitTime = 0.05f;
     }
 }
 
@@ -81,8 +96,7 @@ internal static class DialDoorBridgePatch
     {
         if (Configs.InstantLevers.Value)
         {
-            __instance.doorOpenDelay = __instance.moveDelay = 0f;
-            __instance.moveDuration = Configs.SlowerOptions.Value ? 1f : 0f;
+            __instance.doorOpenDelay = __instance.moveDelay = __instance.moveDuration = 0f;
         }        
     }
 }

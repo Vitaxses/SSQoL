@@ -9,7 +9,6 @@ A Quality of Life mod for Hollow Knight: Silksong
   + Faster Menu
   + Instant Text
   + Faster Lifts
-  + Soften Fast Settings
   + Instant Levers
 - Bellway
   + Faster Travel Animations
@@ -34,12 +33,13 @@ A Quality of Life mod for Hollow Knight: Silksong
   + Old Float Override
   + Cloakless Clawline
   + Old Volt Vessels
+  + Pimpillo Pogo
   + Old Scuttlebrace
   + Old Mist
   + Beast Boosts
   + Trobbio Skip
   + Putrified Ducts Planks
-  + Skull Tyrant Lever Skip
+  + Skull Tyrant Lever Ski
 
 ## Issues
 

@@ -16,7 +16,7 @@ internal static class UIManagerPatch
 
     internal static void Adjust()
     {
-        if (Configs.FastUI.Value) UIManager.instance.MENU_FADE_SPEED = Configs.SlowerOptions.Value ? 11.5f : 14;
+        if (Configs.FastUI.Value) UIManager.instance.MENU_FADE_SPEED = 13f;
         else UIManager.instance.MENU_FADE_SPEED = 3.2f; // default
     }
 }
