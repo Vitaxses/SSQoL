@@ -76,7 +76,8 @@ internal static class FasterNpc
             if (fsm.GetState("Needolin Pre Wait") == null)
                 return;
 
-            if (Configs.FasterVaultkeeper.Value)
+            var board = fsm.GetComponent<RelicBoardOwner>();
+            if (Configs.FasterVaultkeeper.Value && (board.IsAnyRelicsToDeposit() || board.list.SelectMany(type => type.Relics).Any(relic => relic.SavedData.IsDeposited)))
             {
                 fsm.ChangeTransition("Init", FsmEvent.Finished.Name, "Roar End Small");
                 fsm.DisableActionsOfType<CheckTrackTriggerCount>("Idle");
