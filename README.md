@@ -24,9 +24,9 @@ A Quality of Life mod for Hollow Knight: Silksong
   + Faster NPC Introduction
   + Faster Boss Introduction
 - Cutscene
-  + Skip Cutscenes Faster
+  + Skip Cutscenes
   + Skip Dream Cutscenes
-  + Fully Skip Dream Cutscenes
+  + Fully Skip Dream Scenes
   + Skip Weakness Scenes
   + Skip Tutorial Tool Msg
 - Old Patch
@@ -36,14 +36,15 @@ A Quality of Life mod for Hollow Knight: Silksong
   + Pimpillo Pogo
   + Old Scuttlebrace
   + Old Mist
-  + Beast Boosts
   + Trobbio Skip
-  + Putrified Ducts Planks
-  + Skull Tyrant Lever Ski
+  + Lever Skips
+  + Faydown Cloak Without Needolin
+  + Old Putrified Ducts Planks
 
 ## Issues
 
 If you encounter any issues or have a feature request, please create an issue on the [Issue Page](https://github.com/Vitaxses/Silksong.QoL/issues/new)
 
 ## Credits
-Clazex - FastFastTravel and Skip Last Dive.
+
+- Clazex - FastFastTravel and Skip Last Dive.
