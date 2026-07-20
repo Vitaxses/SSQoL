@@ -9,7 +9,7 @@ internal static class DialogueBoxPatch
         if (!Configs.InstantText.Value)
             return;
 
-        __instance.currentRevealSpeed = __instance.regularRevealSpeed = __instance.fastRevealSpeed *= 150;
+        __instance.currentRevealSpeed = __instance.fastRevealSpeed *= 150;
         __instance.animator.speed = 3f;
     }
 }
@@ -24,7 +24,7 @@ internal static class DialogueYesNoBoxPatch
             return;
 
         __instance.textRevealSpeed = 250f;
-        __instance.textRevealWait = 0;
+        __instance.textRevealWait = 0.1f;
         __instance.animator.speed = 2f;
     }
 }
