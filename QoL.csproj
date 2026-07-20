@@ -36,7 +36,7 @@
 
     <PackageReference Include="Silksong.GameLibs" Version="*-*" PrivateAssets="all" />
 
-    <PackageReference Include="Silksong.FsmUtil" Version="0.3.16" />
+    <PackageReference Include="Silksong.FsmUtil" Version="0.3.17" />
     <PackageReference Include="Silksong.ModMenu" Version="0.7.6" />
   </ItemGroup>
 
