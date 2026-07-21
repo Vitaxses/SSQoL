@@ -27,6 +27,28 @@ internal static class Abilities
         });
     }
 
+    internal static void Bind(PlayMakerFSM fsm)
+    {
+        if (fsm is not { name: "Hero_Hornet(Clone)", FsmName: "Bind" })
+            return;
+
+        var callMethodProper = fsm.GetFirstActionOfType<CallMethodProper>("Sprint?");
+        var boolTestMulti = fsm.GetFirstActionOfType<BoolTestMulti>("Sprint?");
+
+        fsm.InsertMethod("Sprint?", () =>
+        {
+            if (Configs.BindDashRefresh.Value)
+            {
+                callMethodProper?.Enabled = false;
+                boolTestMulti?.Enabled = false;
+            } else
+            {
+                callMethodProper?.Enabled = true;
+                boolTestMulti?.Enabled = true;
+            }
+        }, 0);
+    }
+
     internal static void FaydownNeedolinCheck(PlayMakerFSM fsm)
     {
         if (!Configs.RemoveFaydownNeedolinCheck.Value || fsm is not { FsmName: "DJ Get Sequence"})

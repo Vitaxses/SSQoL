@@ -33,6 +33,7 @@ A Quality of Life mod for Hollow Knight: Silksong
   + Old Float Override
   + Cloakless Clawline
   + Old Volt Vessels
+  + Bind Dash Refresh
   + Pimpillo Pogo
   + Old Scuttlebrace
   + Old Mist

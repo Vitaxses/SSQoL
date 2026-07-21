@@ -32,6 +32,7 @@ internal static class PlayMakerFSMPatch
         DreamCutscene.SilkHeart,
         ToolPatch.Scuttlebrace,
         Abilities.NeedleStrike,
+        Abilities.Bind,
         Abilities.FaydownNeedolinCheck,
         SkipWeakness.SkipWeaknessPatch,
         FastMenu.ShopUI,

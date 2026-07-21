@@ -33,6 +33,7 @@ public static class Configs
     public static ConfigEntry<bool> CloaklessClawline { get; private set; } = null!;
     public static ConfigEntry<bool> OldVoltVessels { get; private set; } = null!;
     public static ConfigEntry<bool> BeastBoosts { get; private set; } = null!;
+    public static ConfigEntry<bool> BindDashRefresh { get; private set; } = null!;
     public static ConfigEntry<bool> OldScuttlebrace { get; private set; } = null!;
     public static ConfigEntry<bool> OldMist { get; private set; } = null!;
     public static ConfigEntry<bool> TrobbioSkip { get; private set; } = null!;
@@ -90,12 +91,13 @@ public static class Configs
         OldDelversDrillSnareSetter = config.Bind(ToolPogoSection, "Old Delvers Drill & Snare Setter", false, "");
 
         OldFloat = config.Bind(OldPatchSection, "Drifters Cloak Override", false, "Re-adds float override input (Down + Jump)");
-        CloaklessClawline = config.Bind(OldPatchSection, "Cloakless Clawline", false, "Wall requiring the Drifter's Cloak in Underworks is now clingable");
-        BeastBoosts = config.Bind(OldPatchSection, "Beast Boosts", false, "The Beast's Crest Needle Art occasionally grants extra height");
-        OldScuttlebrace = config.Bind(OldPatchSection, "Old Scuttlebrace", false, "Scuttlebrace Allows wall-jumping off unclingable walls");
+        CloaklessClawline = config.Bind(OldPatchSection, "Cloakless Clawline", false, "Makes it so the Clawline is obtainable without the Drifter's Cloak");
+        BeastBoosts = config.Bind(OldPatchSection, "Beast Boosts", false, "Makes it so the Beast's Crest Needle Art occasionally grants extra height");
+        BindDashRefresh = config.Bind(OldPatchSection, "Bind Dash Refresh", false, "Adds the bind dash refresh speedtech");
         OldMist = config.Bind(OldPatchSection, "Old Mist", false, "Enables room juggling in the Mist");
-        TrobbioSkip = config.Bind(OldPatchSection, "Trobbio Skip", false, "Allows tools to hit the slide platforms in Whispering Vaults");
         LeverSkips = config.Bind(OldPatchSection, "Lever Skips", false, "Allows certain levers to be hit through walls");
+        OldScuttlebrace = config.Bind(OldPatchSection, "Old Scuttlebrace", false, "Allows Scuttlebrace wall-jumping off unclingable walls");
+        TrobbioSkip = config.Bind(OldPatchSection, "Trobbio Skip", false, "Allows the slide platforms in Whispering Vaults to be hit with tools");
         RemoveFaydownNeedolinCheck = config.Bind(OldPatchSection, "Faydown Cloak Without Needolin", false, "Allows getting the Faydown Cloak without the Needolin");
         OldPutrifiedPlanks = config.Bind(OldPatchSection, "Old Putrified Ducts Planks", false, "Allows certain tools to break the planks between Bilewater and Putrified Ducts");
 
