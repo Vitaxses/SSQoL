@@ -80,7 +80,11 @@ public static class FsmFasterBoss
         {
             Plugin.Logger.LogDebug("Modifying Lace1 Boss FSM");
 
-            fsm.ChangeTransition("Encountered?", "MEET", "Refight");
+            fsm.InsertAction("Encountered?", new HutongGames.PlayMaker.Actions.SetPlayerDataBool()
+            {
+                boolName = nameof(PD.encounteredLace1),
+                value = true
+            }, 0);
         }
         
         else if (fsm.gameObject is { name: "Intro Control", scene.name: "Abyss_Cocoon" })
