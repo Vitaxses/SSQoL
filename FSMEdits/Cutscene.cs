@@ -1,6 +1,4 @@
-﻿using GlobalEnums;
-
-namespace QoL.FSMEdits;
+﻿namespace QoL.FSMEdits;
 
 internal static class FsmCutscene
 {
@@ -26,19 +24,7 @@ internal static class FsmCutscene
         if (fsm is not { name: "Pinstress Interior Ground Sit", FsmName: "Behaviour" })
             return;
 
-        var cinematicState = fsm.GetState("Cinematic");
-        cinematicState?.DisableActionsOfType<StartCinematic>();
-        
-        var screenFader = cinematicState?.GetFirstActionOfType<ScreenFader>();
-        screenFader?.endColour.Value = screenFader.endColour.Value.SetAlpha(1f);
-        screenFader?.duration = 1f;
-
-        cinematicState?.AddAction(new Wait()
-        {
-            time = 1f,
-            finishEvent = cinematicState.GetTransition(0).FsmEvent
-        });
-
+        fsm.ChangeTransition("Reposition", FsmEvent.Finished.Name, "Msg");
         fsm.GetState("Fade Up")?.GetFirstActionOfType<Wait>()?.time = 1f;
     }
     
@@ -81,7 +67,7 @@ internal static class FsmCutscene
 
         cinematicState?.AddAction(new Wait()
         {
-            time = 1f,
+            time = 0.5f,
             finishEvent = cinematicState.GetTransition(0).FsmEvent
         });
     }
