@@ -36,18 +36,10 @@ internal static class FsmCutscene
         if (fsm is not { name: "Doctor Fly", FsmName: "Dialogue" })
             return;
 
-        var cinematicState = fsm.GetState("Cinematic");
-        cinematicState?.DisableActionsOfType<StartCinematic>();
+        var state = fsm.GetState("Set After Scene Pos's")!;
         
-        var screenFader = cinematicState?.GetFirstActionOfType<ScreenFader>();
-        screenFader?.endColour.Value = screenFader.endColour.Value.SetAlpha(1f);
-        screenFader?.duration = 1f;
-
-        cinematicState?.AddAction(new Wait()
-        {
-            time = 1f,
-            finishEvent = cinematicState.GetTransition(0).FsmEvent
-        });
+        state.AddMethod(() => HudCanvas.instance.targetFsm.SendEvent("OUT INSTANT"));
+        fsm.ChangeTransition(state.Name, FsmEvent.Finished.Name, "Combo Bar Prompt");
     }
     
     internal static void Seamstress(PlayMakerFSM fsm)
@@ -58,18 +50,10 @@ internal static class FsmCutscene
         if (fsm is not { name: "Seamstress", FsmName: "Dialogue" })
             return;
 
-        var cinematicState = fsm.GetState("Cinematic");
-        cinematicState?.DisableActionsOfType<StartCinematic>();
-        
-        var screenFader = cinematicState?.GetFirstActionOfType<ScreenFader>();
-        screenFader?.endColour.Value = screenFader.endColour.Value.SetAlpha(1f);
-        screenFader?.duration = 1f;
+        var cinematicState = fsm.GetState("Cinematic")!;
+        cinematicState.DisableActionsOfType<StartCinematic>();
 
-        cinematicState?.AddAction(new Wait()
-        {
-            time = 0.5f,
-            finishEvent = cinematicState.GetTransition(0).FsmEvent
-        });
+        fsm.AddTransition(cinematicState.Name, FsmEvent.Finished.Name, "Citadel Dlg Skip?");
     }
 
     internal static void Plinney(PlayMakerFSM fsm)
