@@ -1,8 +1,9 @@
 namespace QoL.Patches.Fast;
 
-[HarmonyPatch(typeof(DialogueBox), nameof(DialogueBox.Start))]
+[HarmonyPatch(typeof(DialogueBox))]
 internal static class DialogueBoxPatch
 {
+    [HarmonyPatch(nameof(DialogueBox.Start))]
     [HarmonyWrapSafe, HarmonyPostfix]
     private static void Postfix_Start(DialogueBox __instance)
     {
@@ -11,6 +12,21 @@ internal static class DialogueBoxPatch
 
         __instance.currentRevealSpeed = __instance.fastRevealSpeed *= 150;
         __instance.animator.speed = 3f;
+        __instance.lineEndPause = __instance.firstOpenDelay = 0f;
+    }
+
+    
+    [HarmonyPatch(nameof(DialogueBox.Update))]
+    [HarmonyWrapSafe, HarmonyPostfix]
+    private static void Postfix_Update(DialogueBox __instance)
+    {
+        if (!Configs.InstantText.Value)
+            return;
+
+        if (ManagerSingleton<InputHandler>.Instance.WasSkipButtonPressed)
+		{
+			__instance.AdvanceConversation();
+		}
     }
 }
 
