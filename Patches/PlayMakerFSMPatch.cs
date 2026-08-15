@@ -21,6 +21,7 @@ internal static class PlayMakerFSMPatch
         BeastlingCall.Needolin,
         FsmCutscene.Pinstress,
         FsmCutscene.Doctor,
+        FsmCutscene.Seamstress,
         FsmCutscene.Plinney,
         FsmCutscene.LastDive,
         FsmCutscene.Lace2,
