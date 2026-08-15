@@ -18,6 +18,69 @@ internal static class FsmCutscene
         bst.entryGateName = "door_entry";
     }
 
+    internal static void Pinstress(PlayMakerFSM fsm)
+    {
+        if (!Configs.SkipCutscene.Value)
+            return;
+
+        if (fsm is not { name: "Pinstress Interior Ground Sit", FsmName: "Behaviour" })
+            return;
+
+        var cinematicState = fsm.GetState("Cinematic");
+        cinematicState?.DisableActionsOfType<StartCinematic>();
+        
+        var screenFader = cinematicState?.GetFirstActionOfType<ScreenFader>();
+        screenFader?.endColour.Value = screenFader.endColour.Value.SetAlpha(1f);
+        screenFader?.duration = 1f;
+
+        cinematicState?.AddAction(new Wait()
+        {
+            time = 1f,
+            finishEvent = cinematicState.GetTransition(0).FsmEvent
+        });
+
+        fsm.GetState("Fade Up")?.GetFirstActionOfType<Wait>()?.time = 1f;
+    }
+    
+    internal static void Doctor(PlayMakerFSM fsm)
+    {
+        if (!Configs.SkipCutscene.Value)
+            return;
+
+        if (fsm is not { name: "Doctor Fly", FsmName: "Dialogue" })
+            return;
+
+        var cinematicState = fsm.GetState("Cinematic");
+        cinematicState?.DisableActionsOfType<StartCinematic>();
+        
+        var screenFader = cinematicState?.GetFirstActionOfType<ScreenFader>();
+        screenFader?.endColour.Value = screenFader.endColour.Value.SetAlpha(1f);
+        screenFader?.duration = 1f;
+
+        cinematicState?.AddAction(new Wait()
+        {
+            time = 1f,
+            finishEvent = cinematicState.GetTransition(0).FsmEvent
+        });
+    }
+
+    internal static void Plinney(PlayMakerFSM fsm)
+    {        
+        if (!Configs.SkipCutscene.Value)
+            return;
+
+        if (fsm is not { name: "Plinney Inside", FsmName: "Dialogue" })
+            return;
+
+        fsm.InsertAction("Fade Down", new Wait()
+        {
+            time = 0f,
+            finishEvent = FsmEvent.Finished
+        }, 2);
+
+        fsm.ChangeTransition("Fade Down", FsmEvent.Finished.Name, "Upgrade");
+    }
+
     internal static void Lace2(PlayMakerFSM fsm)
     {
         if (!Configs.SkipCutscene.Value)
@@ -198,23 +261,4 @@ internal static class FsmCutscene
         fsm.DisableActions("State 1", 2, 3, 4);
     }
 
-    internal static void SmallCutscenes(PlayMakerFSM fsm)
-    {
-        /*
-        if (!Configs.SkipCutscene.Value)
-            return;
-
-        if (fsm is { FsmName: "Behaviour", name: "Pinstress Interior Ground Sit" } 
-            || (fsm.FsmName == "Dialogue" && (fsm.name == "Plinney Inside" || fsm.name == "Doctor Fly")))
-        {
-            fsm.GetState("Cinematic")!.AddAction(new Wait()
-            {
-                time = 2.5f,
-            });
-            fsm.GetState("Cinematic")!.AddMethod(_ =>
-            {
-                InputHandler.Instance.SetSkipMode(SkipPromptMode.SKIP_INSTANT);
-            });
-        }*/
-    }
 }
