@@ -63,6 +63,28 @@ internal static class FsmCutscene
             finishEvent = cinematicState.GetTransition(0).FsmEvent
         });
     }
+    
+    internal static void Seamstress(PlayMakerFSM fsm)
+    {
+        if (!Configs.SkipCutscene.Value)
+            return;
+
+        if (fsm is not { name: "Seamstress", FsmName: "Dialogue" })
+            return;
+
+        var cinematicState = fsm.GetState("Cinematic");
+        cinematicState?.DisableActionsOfType<StartCinematic>();
+        
+        var screenFader = cinematicState?.GetFirstActionOfType<ScreenFader>();
+        screenFader?.endColour.Value = screenFader.endColour.Value.SetAlpha(1f);
+        screenFader?.duration = 1f;
+
+        cinematicState?.AddAction(new Wait()
+        {
+            time = 1f,
+            finishEvent = cinematicState.GetTransition(0).FsmEvent
+        });
+    }
 
     internal static void Plinney(PlayMakerFSM fsm)
     {        
