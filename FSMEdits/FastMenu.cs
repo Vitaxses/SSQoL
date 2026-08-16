@@ -7,17 +7,32 @@ public static class FastMenu
         if (!Configs.FastUI.Value)
             return;
 
-        FsmFloat fadeTime = fsm.FindFloatVariable("Fade Time")!;
-        fadeTime?.RawValue = 0.1f;
-
         if (fsm.FsmName == "ui_list_item" && (fsm.name == "No" || fsm.name == "Yes"))
         {
-            fsm.GetState("Chosen")!.GetLastActionOfType<Wait>()!.time = 0f;
+            fsm.FindFloatVariable("Fade Time")?.Value = 0.1f;
+            fsm.GetState("Chosen")?.GetLastActionOfType<Wait>()!.time = 0f;
         }
 
-        else if (fsm.FsmName == "Confirm Control" && fsm.name == "UI List")
+        else if (fsm is { FsmName: "shop_control", name: "Shop Menu(Clone)" })
         {
-            fsm.GetState("Particles")!.GetFirstActionOfType<Wait>()!.time = 0.1f;
+            fsm.FindFloatVariable("Fade Time")?.Value = 0.1f;
+        }
+
+        else if (fsm is { FsmName: "Confirm Control", name: "UI List" })
+        {
+            fsm.FindFloatVariable("Fade Time")?.Value = 
+            fsm.GetState("Particles")!.GetFirstActionOfType<Wait>()!.time.Value = 
+            fsm.GetState("Thank Fade")!.GetLastActionOfType<FadeNestedFadeGroup>()!.FadeTime.Value = 0.1f;
+        }
+
+        else if (fsm is { FsmName: "Item List Control", name: "Item List" })
+        {
+            fsm.GetFirstActionOfType<FadeNestedFadeGroup>("Activate Confirm Group")?.FadeTime.Value = 0f;
+        }
+
+        else if (fsm is { FsmName: "ui_list", name: "UI List" })
+        {
+            fsm.GetFirstActionOfType<Wait>("Selection Made")?.time = fsm.GetFirstActionOfType<Wait>("Selection Made Cancel")?.time = 0f;
         }
     }
 
