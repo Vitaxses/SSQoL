@@ -39,6 +39,7 @@ internal static class PlayMakerFSMPatch
         Abilities.FaydownNeedolinCheck,
         SkipWeakness.SkipWeaknessPatch,
         FastMenu.ShopUI,
+        FastMenu.GetMapPrompt,
         FastMenu.QuestUIPrompt,
     ];
 

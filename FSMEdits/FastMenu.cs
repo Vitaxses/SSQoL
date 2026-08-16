@@ -21,6 +21,17 @@ public static class FastMenu
         }
     }
 
+    internal static void GetMapPrompt(PlayMakerFSM fsm)
+    {
+        if (!Configs.FastUI.Value)
+            return;
+
+        if (fsm is not { name: "UI Msg Get Map(Clone)", FsmName: "Msg Control"})
+            return;
+
+        fsm.ChangeTransition("Init", FsmEvent.Finished.Name, "Done");
+    }
+
     internal static void QuestUIPrompt(PlayMakerFSM fsm)
     {
         if (!Configs.FastUI.Value)
