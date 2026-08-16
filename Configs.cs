@@ -11,7 +11,7 @@ public static class Configs
     public static ConfigEntry<bool> NoBellBeastSleep { get; private set; } = null!;
     public static ConfigEntry<bool> BellBeastFreeWill { get; private set; } = null!;
     public static ConfigEntry<bool> FasterBeastlingCall { get; private set; } = null!;
-    public static ConfigEntry<bool> SkipBeastlingCallPerformance { get; private set; } = null!;
+    // public static ConfigEntry<bool> SkipBeastlingCallPerformance { get; private set; } = null!;
 
     public static ConfigEntry<bool> FasterVentricaTravel { get; private set; } = null!;
     public static ConfigEntry<bool> FasterVentricaBuy { get; private set; } = null!;
@@ -71,8 +71,10 @@ public static class Configs
         NoBellBeastSleep = config.Bind(BellwaySection, "BellBeast Always Awake", true, "Keeps the Bell Beast always awake");
         BellBeastFreeWill = config.Bind(BellwaySection, "BellBeast Always Ready", false, "Makes the Bell Beast always ready at your location");
         
+        
         FasterBeastlingCall = config.Bind(BellwaySection, "Faster Beastling Call", true, "Speeds up Beastling call performance and travel");
-        SkipBeastlingCallPerformance = config.Bind(BellwaySection, "Skip Beastling Call Performance", false, "Skips the Beastling call performance entirely");
+        // Disabled for now
+        // SkipBeastlingCallPerformance = config.Bind(BellwaySection, "Skip Beastling Call Performance", false, "Skips the Beastling call performance entirely");
 
         FasterVentricaTravel = config.Bind(VentricaSection, "Faster Ventrica Travel Animation", true, "Speeds up arrival and departure animations for Ventrica travel");
         FasterVentricaBuy = config.Bind(VentricaSection, "Faster Ventrica Purchase", true, "Speeds up the animation when buying Ventrica stations");

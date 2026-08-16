@@ -39,6 +39,7 @@ internal static class BeastlingCall {
 
     internal static void Needolin(PlayMakerFSM fsmSilkSpecials)
     {
+        /*
         if (!Configs.FasterBeastlingCall.Value && !Configs.SkipBeastlingCallPerformance.Value)
             return;
 
@@ -46,12 +47,12 @@ internal static class BeastlingCall {
             return;
 
         // Needolin SubFSM
-        Fsm fsm = fsmSilkSpecials.GetAction<RunFSM>("Needolin Sub", 2)!.runFsm;
+        Fsm fsm = fsmSilkSpecials.GetAction<RunFSM>("Needolin Sub", 2)!.fsmTemplateControl.RunFsm;
 
         fsm.GetAction<BoolTestDelay>("Needolin FT Wait", 4)!.delay = 0f;
         fsm.GetAction<Wait>("Can Fast Travel?", 1)!.time = 0f;
 
         fsm.GetAction<Wait>("Needolin FT Antic", 5)!.time = // Originally 3f
-            Configs.SkipBeastlingCallPerformance.Value ? 0f : 1.5f;
+            Configs.SkipBeastlingCallPerformance.Value ? 0f : 1.5f;*/
     }
 }
