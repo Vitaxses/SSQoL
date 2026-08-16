@@ -11,7 +11,7 @@ internal static class DialogueBoxPatch
             return;
 
         __instance.currentRevealSpeed = __instance.fastRevealSpeed *= 150;
-        __instance.animator.speed = 3f;
+        // __instance.animator.speed = 3f;
         __instance.lineEndPause = __instance.firstOpenDelay = 0f;
     }
 
