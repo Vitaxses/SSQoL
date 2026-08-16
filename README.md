@@ -16,7 +16,6 @@ A Quality of Life mod for Hollow Knight: Silksong
   + Bell Beast Always Awake
   + Bell Beast Always Ready At Your Location
   + Faster Beastling Call
-    - Skip Beastling Call Performance
 - Ventrica
   + Faster Travel Animations
   + Faster Ventrica Station Buy
@@ -44,8 +43,9 @@ A Quality of Life mod for Hollow Knight: Silksong
 
 ## Issues
 
-If you encounter any issues or have a feature request, please create an issue on the [Issue Page](https://github.com/Vitaxses/Silksong.QoL/issues/new)
+If you encounter an issue, please create an issue on the [Issue Page](https://github.com/Vitaxses/Silksong.QoL/issues/new)
 
 ## Credits
 
-- Clazex - FastFastTravel and Skip Last Dive.
+- FastFastTravel, Skip Last Dive - [Clazex](https://github.com/clazex/)
+- Recreating old patch The Mist logic - [Fireb0rngg](https://github.com/Fireb0rngg/)
