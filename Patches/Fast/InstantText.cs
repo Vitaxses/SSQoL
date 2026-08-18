@@ -40,7 +40,7 @@ internal static class DialogueYesNoBoxPatch
             return;
 
         __instance.textRevealSpeed = 250f;
-        __instance.textRevealWait = 0.1f;
+        //__instance.textRevealWait = 0.1f;
         __instance.animator.speed = 2f;
     }
 }
